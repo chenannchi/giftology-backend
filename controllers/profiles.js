@@ -46,10 +46,9 @@ const addFriend = async (req, res) => {
   console.log(req.body)
   try {
     const userA = await Profile.findById(req.params.id)
-      console.log(userA)
 
     const userB = await Profile.findById(req.body._id)
-      console.log(userB)
+
 
     const docA = await Friend.findOneAndUpdate(
       { requester: userB, recipient: userA },
@@ -80,6 +79,7 @@ const addFriend = async (req, res) => {
 }
 
 const acceptFriendRequest = async (req, res) => {
+  console.log(req.params)
   try {
     const userA = await Profile.findById(
       req.params.id)
@@ -119,21 +119,14 @@ const declineFriendRequest = async (req, res) => {
     const docA = await Friend.findOneAndRemove(
       { requester: userA, recipient: userB }
     )
+    console.log(docA)
     const docB = await Friend.findOneAndRemove(
       { recipient: userA, requester: userB }
     )
-    const updateUserA = await Profile.findOneAndUpdate(
-      { _id: userA },
-      { $pull: { friends: docA } },
-      { upsert: true, new: true }
-    )
-    const updateUserB = await Profile.findOneAndUpdate(
-      { _id: userB },
-      { $pull: { friends: docB } },
-      { upsert: true, new: true }
-    )
+    const updateUserA = await Profile.findOneAndUpdate({ _id: userA }, { $pull: { friends: docB._id } })
+    const updateUserB = await Profile.findOneAndUpdate({ _id: userB }, { $pull: { friends: docA._id } })
 
-    res.status(200).json(req.body)
+    res.status(200).json(updateUserA)
   } catch (err) {
     console.log(err)
     res.status(500).json(err)

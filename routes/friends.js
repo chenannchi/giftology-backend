@@ -10,7 +10,7 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 
 router.use(decodeUserFromToken)
-router.get('/', checkAuth, friendsCtrl.index)
-router.put('/:id', checkAuth, friendsCtrl.addFriend)
+// router.get('/', checkAuth, friendsCtrl.index)
+// router.put('/:id', checkAuth, friendsCtrl.addFriend)
 
 export { router }
