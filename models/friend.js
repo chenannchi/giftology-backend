@@ -6,7 +6,7 @@ const friendSchema = new Schema({
   requester: { type: Schema.Types.ObjectId, ref: 'Profile'},
   recipient: { type: Schema.Types.ObjectId, ref: 'Profile'},
   status: {
-    type: Number,
+    type: String,
     enums: [
         0,    //'add friend',
         1,    //'requested',
