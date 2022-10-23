@@ -8,10 +8,9 @@ const friendSchema = new Schema({
   status: {
     type: String,
     enums: [
-        0,    //'add friend',
-        1,    //'requested',
-        2,    //'pending',
-        3,    //'friends'
+      'requested',
+      'accepted',
+      'declined'
     ]
   }
 }, {timestamps: true})
