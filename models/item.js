@@ -4,9 +4,11 @@ const Schema = mongoose.Schema
 
 const itemSchema = new Schema({
   name: String,
-  category: String,
-  description: String,
-  items: [{ type: Schema.Types.ObjectId, ref: 'Item'}],
+  type: String,
+  desc: String,
+  url: String,
+  img: String,
+  purchased: Boolean,
 }, {
   timestamps: true
 })
