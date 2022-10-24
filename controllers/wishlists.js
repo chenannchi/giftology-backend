@@ -16,8 +16,30 @@ const create = async (req, res) => {
   }
 }
 
+const index = async (req, res) => {
+  try {
+    const wishlists = await Profile.findById(req.user.profile)
+      .populate('wishlists')
+      res.status(200).json(wishlists)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+const show = async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findById(req.params.id)
+    res.status(200).json(wishlist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
 
 export {
   create,
-
+  index,
+  show,
 }
