@@ -7,7 +7,7 @@ const create = async (req, res) => {
     const wishlist = await Wishlist.create(req.body)
     const profile = await Profile.findByIdAndUpdate(
       req.user.profile,
-      { $push: { wishlist: wishlist }},
+      { $push: { wishlists: wishlist }},
       { new: true }
     )
     
