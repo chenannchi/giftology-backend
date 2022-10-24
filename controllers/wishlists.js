@@ -37,9 +37,39 @@ const show = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(wishlist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+const deleteWishlist = async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findByIdAndDelete(req.params.id)
+    const profile = await Profile.findById(req.user.profile)
+    profile.wishlists.remove({ _id: req.params.id })
+    await profile.save()
+    res.status(200).json(wishlist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
 
 export {
   create,
   index,
   show,
+  update,
+  deleteWishlist as delete,
+
 }
