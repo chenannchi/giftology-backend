@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const profileSchema = new Schema({
   name: String,
   photo: String,
-  wishlist: [],
+  wishlists: [{ type: Schema.Types.ObjectId, ref: 'Wishlist'}],
   friends: [{ type: Schema.Types.ObjectId, ref: 'Friend'}]
 },{
   timestamps: true,
