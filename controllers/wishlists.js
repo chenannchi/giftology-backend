@@ -37,9 +37,25 @@ const show = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(wishlist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+
 
 export {
   create,
   index,
   show,
+  update
 }
