@@ -54,7 +54,9 @@ const update = async (req, res) => {
 const deleteWishlist = async (req, res) => {
   try {
     const wishlist = await Wishlist.findByIdAndDelete(req.params.id)
-    // const profile = await Profile.findByIdAndDelete(req.user.profile)
+    const profile = await Profile.findById(req.user.profile)
+    profile.wishlists.remove({ _id: req.params.id })
+    await profile.save()
     res.status(200).json(wishlist)
   } catch (error) {
     console.log(error)
@@ -69,5 +71,5 @@ export {
   show,
   update,
   deleteWishlist as delete,
-  
+
 }
