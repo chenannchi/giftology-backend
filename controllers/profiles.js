@@ -47,8 +47,11 @@ const addFriend = async (req, res) => {
   console.log(req.body)
   try {
     const userA = await Profile.findById(req.params.id)
+    console.log(req.params.id)
+    console.log(userA)
 
     const userB = await Profile.findById(req.body._id)
+    console.log(userB)
 
 
     const docA = await Friend.findOneAndUpdate(
