@@ -51,11 +51,23 @@ const update = async (req, res) => {
   }
 }
 
+const deleteWishlist = async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findByIdAndDelete(req.params.id)
+    // const profile = await Profile.findByIdAndDelete(req.user.profile)
+    res.status(200).json(wishlist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
 
 
 export {
   create,
   index,
   show,
-  update
+  update,
+  deleteWishlist as delete,
+  
 }
