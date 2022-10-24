@@ -7,6 +7,7 @@ import formData from 'express-form-data'
 import { router as profilesRouter } from './routes/profiles.js'
 import { router as authRouter } from './routes/auth.js'
 import { router as wishlistsRouter } from './routes/wishlists.js'
+// import { router as itemsRouter } from './routes/items.js'
 
 
 import './config/database.js'
@@ -20,7 +21,8 @@ app.use(formData.parse())
 
 app.use('/api/profiles', profilesRouter)
 app.use('/api/auth', authRouter)
-app.use('/wishlists', wishlistsRouter)
+app.use('/api/wishlists', wishlistsRouter)
+// app.use('/wishlists/items', itemsRouter)
 
 app.use(function (req, res, next) {
   res.status(404).json({ err: 'Not found' })

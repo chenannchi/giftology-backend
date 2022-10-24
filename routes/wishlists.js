@@ -8,7 +8,8 @@ const router = Router()
 
 
 /*---------- Protected Routes ----------*/
+router.use(decodeUserFromToken)
 // 'wishlists/'
-
+router.post('/', checkAuth, wishlistsCtrl.create)
 
 export { router }

@@ -4,10 +4,10 @@ const Schema = mongoose.Schema
 
 const wishlistSchema = new Schema({
   name: String,
-  type: String,
+  category: String,
   description: String,
+  items: [{ type: Schema.Types.ObjectId, ref: 'Item'}],
   author: { type: Schema.Types.ObjectId, ref: 'Profile' }
-  // items: [{ type: Schema.Types.ObjectId, ref: 'Item'}]
 }, {
   timestamps: true
 })
