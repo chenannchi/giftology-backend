@@ -117,6 +117,19 @@ const updateItem = async (req, res) => {
   }
 }
 
+const deleteItem = async (req, res) => {
+  try {
+    const item = await Item.findByIdAndDelete(req.params.itemId)
+    const wishlist = await Wishlist.findById(req.params.id)
+    wishlist.items.remove({ _id: req.params.itemId })
+    await wishlist.save()
+    res.status(200).json(item)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
 
 export {
   create,
@@ -127,5 +140,6 @@ export {
   createItem,
   itemIndex,
   itemDetails,
-  updateItem
+  updateItem,
+  deleteItem
 }
