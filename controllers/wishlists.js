@@ -67,7 +67,6 @@ const deleteWishlist = async (req, res) => {
 
 // creating an item that connects with a wishlist
 const createItem = async (req, res) => {
-  console.log(req.params.id)
   try {
     const item = await Item.create(req.body)
     const wishlist = await Wishlist.findByIdAndUpdate(
@@ -82,6 +81,16 @@ const createItem = async (req, res) => {
   }
 }
 
+const itemIndex = async (req, res) => {
+  try {
+    const items = await Wishlist.findById(req.params.id)
+    .populate('items')
+    res.status(200).json(items)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
 
 export {
   create,
@@ -90,5 +99,6 @@ export {
   update,
   deleteWishlist as delete,
   createItem,
+  itemIndex
 
 }

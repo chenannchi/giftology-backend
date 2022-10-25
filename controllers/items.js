@@ -17,6 +17,17 @@ import { Item } from "../models/item.js"
 //   }
 // }
 
+const index = async (req, res) => {
+  try {
+    const wishlists = await Profile.findById(req.user.profile)
+      .populate('wishlists')
+      res.status(200).json(wishlists)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
 
 export {
   
