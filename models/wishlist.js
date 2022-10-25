@@ -7,6 +7,7 @@ const wishlistSchema = new Schema({
   category: String,
   description: String,
   items: [{ type: Schema.Types.ObjectId, ref: 'Item'}],
+  author: { type: Schema.Types.ObjectId, ref: 'Profile' }
 }, {
   timestamps: true
 })
