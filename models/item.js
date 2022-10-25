@@ -4,7 +4,11 @@ const Schema = mongoose.Schema
 
 const itemSchema = new Schema({
   name: String,
-  type: String,
+  category: {
+    type: String,
+    required: true,
+    enum: ['Apparel', 'Arts & Crafts', 'Baby', 'Beauty & Personal Care', 'Electronics', 'Everyday Essentials', 'Home & Kitchen', 'Pets', 'Toys & Games', 'Other']
+  },
   desc: String,
   url: String,
   img: String,
