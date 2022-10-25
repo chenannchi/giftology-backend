@@ -10,9 +10,14 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, wishlistsCtrl.index)
+router.get('/:id/items', checkAuth, wishlistsCtrl.itemIndex)
 router.get('/:id', checkAuth, wishlistsCtrl.show)
+router.get('/:id/item/:itemId', checkAuth, wishlistsCtrl.itemDetails)
 router.post('/', checkAuth, wishlistsCtrl.create)
+router.post('/:id/items', checkAuth, wishlistsCtrl.createItem)
 router.put('/:id', checkAuth, wishlistsCtrl.update)
+router.put('/:id/item/:itemId', checkAuth, wishlistsCtrl.updateItem)
 router.delete('/:id', checkAuth, wishlistsCtrl.delete)
+router.delete('/:id/item/:itemId', checkAuth, wishlistsCtrl.deleteItem)
 
 export { router }

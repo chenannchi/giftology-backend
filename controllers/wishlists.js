@@ -1,5 +1,6 @@
 import { Profile } from "../models/profile.js"
 import { Wishlist } from "../models/wishlist.js"
+import { Item } from "../models/item.js"
 
 const create = async (req, res) => {
   try {
@@ -64,6 +65,71 @@ const deleteWishlist = async (req, res) => {
   }
 }
 
+// creating an item that connects with a wishlist
+const createItem = async (req, res) => {
+  try {
+    const item = await Item.create(req.body)
+    const wishlist = await Wishlist.findByIdAndUpdate(
+      req.params.id,
+      { $push: { items: item }},
+      { new: true }
+    )
+    res.status(201).json(wishlist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+const itemIndex = async (req, res) => {
+  try {
+    const items = await Wishlist.findById(req.params.id)
+    .populate('items')
+    res.status(200).json(items)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+const itemDetails = async (req, res) => {
+  try {
+    const item = await Item.findById(req.params.itemId)
+    res.status(200).json(item)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+
+const updateItem = async (req, res) => {
+  try {
+    const item = await Item.findByIdAndUpdate(
+      req.params.itemId,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(item)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+const deleteItem = async (req, res) => {
+  try {
+    const item = await Item.findByIdAndDelete(req.params.itemId)
+    const wishlist = await Wishlist.findById(req.params.id)
+    wishlist.items.remove({ _id: req.params.itemId })
+    await wishlist.save()
+    res.status(200).json(item)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
 
 export {
   create,
@@ -71,5 +137,9 @@ export {
   show,
   update,
   deleteWishlist as delete,
-
+  createItem,
+  itemIndex,
+  itemDetails,
+  updateItem,
+  deleteItem
 }
