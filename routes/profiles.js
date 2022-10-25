@@ -14,6 +14,6 @@ router.get('/:id/friends', checkAuth, profilesCtrl.friendsIndex)
 router.post('/:id/friends', checkAuth, profilesCtrl.addFriend)
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 router.patch('/:id/friends', checkAuth, profilesCtrl.acceptFriendRequest)
-router.put('/:id/friends', checkAuth, profilesCtrl.declineFriendRequest)
+router.put('/:id/friends', checkAuth, profilesCtrl.deleteFriend)
 
 export { router }
