@@ -122,4 +122,12 @@ const deleteFriend = async (req, res) => {
   }
 }
 
-export { index, addPhoto, friendsIndex, addFriend, acceptFriendRequest, deleteFriend }
+const show = async (req, res) => {
+  try {
+    const profile = await Profile.findById(req.params.id)
+  } catch (error) {
+    
+  }
+}
+
+export { index, addPhoto, friendsIndex, addFriend, acceptFriendRequest, deleteFriend, show }
