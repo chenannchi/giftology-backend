@@ -15,7 +15,7 @@ const create = async (req, res) => {
     res.status(201).json(wishlist)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -36,7 +36,7 @@ const show = async (req, res) => {
     res.status(200).json(wishlist)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -50,7 +50,7 @@ const update = async (req, res) => {
     res.status(200).json(wishlist)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -63,7 +63,7 @@ const deleteWishlist = async (req, res) => {
     res.status(200).json(wishlist)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -80,7 +80,7 @@ const createItem = async (req, res) => {
     res.status(201).json(wishlist)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -88,10 +88,11 @@ const itemIndex = async (req, res) => {
   try {
     const items = await Wishlist.findById(req.params.id)
     .populate('items')
-    res.status(200).json(items)
+    console.log(items)
+    res.status(200).json(items.items)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -101,7 +102,7 @@ const itemDetails = async (req, res) => {
     res.status(200).json(item)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -116,7 +117,7 @@ const updateItem = async (req, res) => {
     res.status(200).json(item)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
@@ -129,7 +130,7 @@ const deleteItem = async (req, res) => {
     res.status(200).json(item)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
