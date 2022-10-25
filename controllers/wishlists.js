@@ -1,5 +1,6 @@
 import { Profile } from "../models/profile.js"
 import { Wishlist } from "../models/wishlist.js"
+import { Item } from "../models/item.js"
 
 const create = async (req, res) => {
   try {
@@ -64,6 +65,23 @@ const deleteWishlist = async (req, res) => {
   }
 }
 
+// creating an item that connects with a wishlist
+const createItem = async (req, res) => {
+  console.log(req.params.id)
+  try {
+    const item = await Item.create(req.body)
+    const wishlist = await Wishlist.findByIdAndUpdate(
+      req.params.id,
+      { $push: { items: item }},
+      { new: true }
+    )
+    res.status(201).json(wishlist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
 
 export {
   create,
@@ -71,5 +89,6 @@ export {
   show,
   update,
   deleteWishlist as delete,
+  createItem,
 
 }
