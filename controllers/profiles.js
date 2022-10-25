@@ -100,7 +100,7 @@ const acceptFriendRequest = async (req, res) => {
   }
 }
 
-const declineFriendRequest = async (req, res) => {
+const deleteFriend = async (req, res) => {
   try {
     const userA = await Profile.findById(
       req.params.id)
@@ -109,17 +109,17 @@ const declineFriendRequest = async (req, res) => {
       req.body._id)
 
       const filter = { recipient: req.params.id, requester: req.body._id }
-      const update = { status: 'declined' }
-      const updateStatus = await Friend.findOneAndUpdate(filter, update, {
-        new: true,
-        upsert: true
-      })
+      const deletedFriendDoc = await Friend.findOneAndDelete(filter)
 
-    res.status(200).json(updateStatus)
+      const updatedUserA = await Profile.findOneAndUpdate({ _id: userA }, { $pull: { friends: deletedFriendDoc._id }} )
+
+      const updatedUserB = await Profile.findOneAndUpdate({ _id: userB }, { $pull: { friends: deletedFriendDoc._id }} )
+
+    res.status(200).json(updatedUserA)
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
   }
 }
 
-export { index, addPhoto, friendsIndex, addFriend, acceptFriendRequest, declineFriendRequest }
+export { index, addPhoto, friendsIndex, addFriend, acceptFriendRequest, deleteFriend }

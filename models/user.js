@@ -24,13 +24,13 @@ userSchema.pre('save', function (next) {
   const user = this
   if (!user.isModified('password')) return next()
   bcrypt.hash(user.password, SALT_ROUNDS)
-  .then(hash => {
-    user.password = hash
-    next()
-  })
-  .catch(err => {
-    next(err)
-  })
+    .then(hash => {
+      user.password = hash
+      next()
+    })
+    .catch(err => {
+      next(err)
+    })
 })
 
 userSchema.methods.comparePassword = function (tryPassword, cb) {
