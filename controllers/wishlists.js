@@ -21,12 +21,12 @@ const create = async (req, res) => {
 
 const index = async (req, res) => {
   try {
-    const wishlists = await Profile.findById(req.user.profile)
-      .populate('wishlists')
-      res.status(200).json(wishlists)
+    const wishlists = await Wishlist.find(req.query)
+      .populate('author')
+    res.status(200).json(wishlists)
   } catch (error) {
     console.log(error)
-    res.status(500).json(err)
+    res.status(500).json(error)
   }
 }
 
