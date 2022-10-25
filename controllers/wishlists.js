@@ -102,6 +102,22 @@ const itemDetails = async (req, res) => {
   }
 }
 
+
+const updateItem = async (req, res) => {
+  try {
+    const item = await Item.findByIdAndUpdate(
+      req.params.itemId,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(item)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(err)
+  }
+}
+
+
 export {
   create,
   index,
@@ -110,6 +126,6 @@ export {
   deleteWishlist as delete,
   createItem,
   itemIndex,
-  itemDetails
-
+  itemDetails,
+  updateItem
 }

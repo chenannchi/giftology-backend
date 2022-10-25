@@ -16,6 +16,8 @@ router.get('/:id/item/:itemId', checkAuth, wishlistsCtrl.itemDetails)
 router.post('/', checkAuth, wishlistsCtrl.create)
 router.post('/:id/items', checkAuth, wishlistsCtrl.createItem)
 router.put('/:id', checkAuth, wishlistsCtrl.update)
+router.put('/:id/item/:itemId', checkAuth, wishlistsCtrl.updateItem)
+
 router.delete('/:id', checkAuth, wishlistsCtrl.delete)
 
 export { router }
