@@ -4,7 +4,7 @@ import { v2 as cloudinary } from 'cloudinary'
 
 function index(req, res) {
   Profile.find({})
-  .populate('friends')
+    .populate('friends')
     .then(profiles => res.status(200).json(profiles))
     .catch(err => {
       console.log(err)
@@ -43,16 +43,10 @@ const friendsIndex = async (req, res) => {
 }
 
 const addFriend = async (req, res) => {
-  console.log(req.params)
-  console.log(req.body)
   try {
     const userA = await Profile.findById(req.params.id)
-    console.log(req.params.id)
-    console.log(userA)
 
     const userB = await Profile.findById(req.body._id)
-    console.log(userB)
-
 
     const docA = await Friend.findOneAndUpdate(
       { requester: userA, recipient: userB },
@@ -69,6 +63,7 @@ const addFriend = async (req, res) => {
       { _id: userB },
       { $push: { friends: docA._id } }
     )
+
     res.status(200).json(updateUserB)
   } catch (err) {
     console.log(err)
@@ -77,7 +72,6 @@ const addFriend = async (req, res) => {
 }
 
 const acceptFriendRequest = async (req, res) => {
-  console.log(req.params)
   try {
     const userA = await Profile.findById(
       req.params.id)
@@ -108,12 +102,12 @@ const deleteFriend = async (req, res) => {
     const userB = await Profile.findById(
       req.body._id)
 
-      const filter = { recipient: req.params.id, requester: req.body._id }
-      const deletedFriendDoc = await Friend.findOneAndDelete(filter)
+    const filter = { recipient: req.params.id, requester: req.body._id }
+    const deletedFriendDoc = await Friend.findOneAndDelete(filter)
 
-      const updatedUserA = await Profile.findOneAndUpdate({ _id: userA }, { $pull: { friends: deletedFriendDoc._id }} )
+    const updatedUserA = await Profile.findOneAndUpdate({ _id: userA }, { $pull: { friends: deletedFriendDoc._id } })
 
-      const updatedUserB = await Profile.findOneAndUpdate({ _id: userB }, { $pull: { friends: deletedFriendDoc._id }} )
+    const updatedUserB = await Profile.findOneAndUpdate({ _id: userB }, { $pull: { friends: deletedFriendDoc._id } })
 
     res.status(200).json(updatedUserA)
   } catch (err) {
@@ -125,8 +119,8 @@ const deleteFriend = async (req, res) => {
 const show = async (req, res) => {
   try {
     const profile = await Profile.findById(req.params.id)
-    .populate('friends')
-    .populate('wishlists')
+      .populate('friends')
+      .populate('wishlists')
     res.status(200).json(profile)
   } catch (error) {
     res.status(500).json(error)
