@@ -17,7 +17,7 @@ router.post('/', checkAuth, wishlistsCtrl.create)
 router.post('/:id/items', checkAuth, wishlistsCtrl.createItem)
 router.patch('/:id/item/:itemId', wishlistsCtrl.purchaseUpdate)
 router.put('/:id', checkAuth, wishlistsCtrl.update)
-router.put('/:id/item/:itemId', checkAuth, wishlistsCtrl.updateItem)
+router.put('/item/:itemId', checkAuth, wishlistsCtrl.updateItem)
 router.delete('/:id', checkAuth, wishlistsCtrl.delete)
 router.delete('/:id/item/:itemId', checkAuth, wishlistsCtrl.deleteItem)
 
