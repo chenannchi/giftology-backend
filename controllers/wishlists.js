@@ -88,7 +88,7 @@ const itemIndex = async (req, res) => {
   try {
     const items = await Wishlist.findById(req.params.id)
     .populate('items')
-    console.log(items)
+    // console.log(items)
     res.status(200).json(items.items)
   } catch (error) {
     console.log(error)
@@ -134,6 +134,39 @@ const deleteItem = async (req, res) => {
   }
 }
 
+const purchaseUpdate = async (req, res) => {
+  try {
+    const item = await Item.findById(req.params.itemId)
+
+    let purchased = item.purchased
+    let template = {
+      bought: true
+    }
+    
+    for (let key in purchased) {
+      if (key === 'bought') {
+        purchased[key] = !purchased[key]
+      } else {
+        if (purchased.bought) {
+          template.owner = req.user.profile
+          template.bought = purchased.bought
+          purchased = template
+        } else {
+          template.bought = purchased.bought
+          delete template.owner
+          purchased = template
+        }
+      }   
+    }
+    item.purchased = purchased
+    item.save()
+    res.status(200).json(item)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+}
+
 
 export {
   create,
@@ -145,5 +178,6 @@ export {
   itemIndex,
   itemDetails,
   updateItem,
-  deleteItem
+  deleteItem,
+  purchaseUpdate
 }

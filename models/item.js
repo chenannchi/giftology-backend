@@ -3,8 +3,11 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
 const purchasedSchema = new Schema({
-  purchased: Boolean,
-  owner: { type: Schema.Types.ObjectId, ref: 'Profile'} 
+  bought: {
+    type: Boolean,
+    default: false, 
+  },
+  owner: { type: Schema.Types.ObjectId, ref: 'Profile' } 
   },
   { 
     timestamps: true
@@ -20,7 +23,7 @@ const itemSchema = new Schema({
   desc: String,
   url: String,
   img: String,
-  purchased: [purchasedSchema],
+  purchased: purchasedSchema
 }, {
   timestamps: true
 })
