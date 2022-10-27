@@ -77,7 +77,7 @@ const createItem = async (req, res) => {
       { new: true }
     )
 
-    res.status(201).json(wishlist)
+    res.status(201).json(item)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)
