@@ -5,13 +5,13 @@ const Schema = mongoose.Schema
 const purchasedSchema = new Schema({
   bought: {
     type: Boolean,
-    default: false, 
+    default: false,
   },
-  owner: { type: Schema.Types.ObjectId, ref: 'Profile' } 
-  },
-  { 
+  owner: { type: Schema.Types.ObjectId, ref: 'Profile' }
+},
+  {
     timestamps: true
-})
+  })
 
 const itemSchema = new Schema({
   name: String,
